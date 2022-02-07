@@ -29,3 +29,4 @@ MANIFEST
 logs/
 .env
 *.code-workspace
+*.sqlite3
