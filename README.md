@@ -1,2 +1,2 @@
-# travel-world
+# accessible-attractions
 Мир путешествий и возможностей

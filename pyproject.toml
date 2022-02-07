@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "travel-world"
+name = "accessible-attractions"
 version = "0.1.0"
 description = "website of the project <World of Travel and Opportunities>"
 authors = ["Evgeniy Tulyakov <e.v.tulyakov1998@gmail.com>"]

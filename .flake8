@@ -5,7 +5,7 @@ statistics = True
 show-source = True
 
 # Setup flake8-import-order
-application-import-names = app, tests
+application-import-names = server, tests
 import-order-style = google
 
 # Setup flake8-quotes
