@@ -14,11 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-iw9(j^^%g2o(bbx#5@2a9gl7=3)o7dksqa2n_@7z-ugj!q(553'
 DEBUG = True
-ALLOWED_HOSTS: list[str] = []
+ALLOWED_HOSTS: tuple[str, ...] = ()
 
 
 # Application definition
-INSTALLED_APPS = [
+INSTALLED_APPS: tuple[str, ...] = (
     'server.apps.main',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -26,10 +26,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+)
 
 
-MIDDLEWARE = [
+MIDDLEWARE: tuple[str, ...] = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -37,7 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+)
 
 ROOT_URLCONF = 'server.urls'
 
