@@ -7,6 +7,7 @@ from django.db import models
 @final
 class Attraction(models.Model):
     name = models.CharField(max_length=128, unique=True, verbose_name='Название')
+    short_info = models.CharField(max_length=256, unique=True, verbose_name='краткое описание')
     description = models.TextField(verbose_name='Описание')
     route = models.TextField(verbose_name='Маршрут до объекта')
     return_route = models.TextField(verbose_name='Обратный маршрут')
