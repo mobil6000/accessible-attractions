@@ -12,6 +12,7 @@ python = "^3.10"
 Django = "^4.0.2"
 django-split-settings = "^1.1.0"
 django-stubs-ext = "^0.3.1"
+Markdown = "^3.3.6"
 
 
 [tool.poetry.dev-dependencies]
