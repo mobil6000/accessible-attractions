@@ -4,8 +4,17 @@
 
 
 {% block content %}
-<p>Культурные объекты, доступные для посищения людей с глубокими нарушениями зрения</p>
+<p>Культурные объекты, доступные для посещения людей с глубокими нарушениями зрения</p>
 <br>
 
+<ul>
+{% for attraction in attraction_list %}
+<li>
+    <p>{{ attraction.name }}</p>
+    <p>{{ attraction.short_info }}</p>
+    <a href="">Читать далее...</a>
+</li>
+{% endfor %}
+</ul>
 
 {% endblock %}
