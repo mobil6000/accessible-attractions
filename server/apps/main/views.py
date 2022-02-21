@@ -10,5 +10,8 @@ def index(request: HttpRequest) -> HttpResponse:
 
 
 def show_attractions_list(request: HttpRequest) -> HttpResponse:
-    context_data = {'attraction_list': service_layer.fetch_attractions_list()}
-    return render(request, 'main/attractions.html', context=context_data)
+    try:
+        attractions = service_layer.fetch_attractions_list()
+    except service_layer.DataMissingError:
+        return HttpResponse(status=500)
+    return render(request, 'main/attractions.html', {'attraction_list': attractions})
