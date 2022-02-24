@@ -1,0 +1,38 @@
+name: Run tests on any push event
+on:
+  push:
+    tags:
+      - '!refs/tags/*'
+    branches:
+      - '*'
+  pull_request:
+    branches: [ master ]
+
+
+jobs:
+  run_tests:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@master
+
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+
+      - name: Install poetry
+        uses: snok/install-poetry@v1
+        with:
+          vertualenvs-create: true
+          installer-parallel: true
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: run linting
+        run: |
+          poetry run flake8
+          poetry run mypy
