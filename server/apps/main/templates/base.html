@@ -20,7 +20,7 @@
 <body>
   <header>
     <nev class="container">
-      <a class="logo" href=""><img src="https://imdiz.ru/files/store/img/logo.png" alt="Logo"></a>
+      <div class="logo"><img src="{% static 'images/logo.png' %}" alt="Logo"></div>
 
       <form action="" method="get" id="search_form">
         <input type="text" placeholder="Искать на сайте...">
@@ -31,7 +31,7 @@
         <li><a href="">О нас</a></li>
         <li><a href="{% url 'show_attractions_list' %}">Культурные объекты г. Москвы</a></li>
         <li><a href="">Особенности ориентировки в пространстве и тифлокомментирования</a></li>
-          <li><a href="">Новости</a></li>
+        <li><a href="">Новости</a></li>
       </ul>
     </nev>
   </header>
