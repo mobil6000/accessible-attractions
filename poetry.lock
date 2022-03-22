@@ -250,6 +250,17 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "returns"
+version = "0.19.0"
+description = "Make your functions return something meaningful, typed, and safe!"
+category = "main"
+optional = false
+python-versions = ">=3.7,<4.0"
+
+[package.dependencies]
+typing-extensions = ">=4.0,<5.0"
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -334,7 +345,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "456115723b6b72c533dd5cf90dfe272f375fb71f22f4e876e042f966291ebed4"
+content-hash = "77943739d775856856fb512338a5715df619015516c737b7895c45cea5239e18"
 
 [metadata.files]
 asgiref = [
@@ -475,6 +486,10 @@ pyyaml = [
     {file = "PyYAML-6.0-cp39-cp39-win32.whl", hash = "sha256:b5b9eccad747aabaaffbc6064800670f0c297e52c12754eb1d976c57e4f74dcb"},
     {file = "PyYAML-6.0-cp39-cp39-win_amd64.whl", hash = "sha256:b3d267842bf12586ba6c734f89d1f5b871df0273157918b0ccefa29deb05c21c"},
     {file = "PyYAML-6.0.tar.gz", hash = "sha256:68fb519c14306fec9720a2a5b45bc9f0c8d1b9c72adf45c37baedfcd949c35a2"},
+]
+returns = [
+    {file = "returns-0.19.0-py3-none-any.whl", hash = "sha256:ae3ce9e5165d1218905291b4d5881b4e8a86ca478437bef3b0af1de8df57ec69"},
+    {file = "returns-0.19.0.tar.gz", hash = "sha256:4544bb67849c1ef1bbf7823759d433a773959e5b77a8fd06d01fef6d060f2ac5"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},

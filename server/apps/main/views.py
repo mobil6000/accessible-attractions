@@ -1,8 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from .services import service_layer
-from .services.exceptions import DataMissingError
+from .services.attraction_services import GetAttractionList
 
 
 
@@ -11,8 +10,6 @@ def index(request: HttpRequest) -> HttpResponse:
 
 
 def show_attractions_list(request: HttpRequest) -> HttpResponse:
-    try:
-        attractions = service_layer.fetch_attractions_list()
-    except DataMissingError:
-        return HttpResponse(status=500)
+    service_object = GetAttractionList()
+    attractions = service_object()
     return render(request, 'main/attractions.html', {'attraction_list': attractions})
