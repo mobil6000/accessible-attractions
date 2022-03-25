@@ -1,7 +1,11 @@
 # Business logic of application
 from typing import final, NamedTuple
 
+from returns.pipeline import is_successful
+from returns.result import Failure, Result, safe, Success
+
 from server.apps.main import models
+from .exceptions import DataMissingError
 
 
 
@@ -15,15 +19,27 @@ class AttractionPreview(NamedTuple):
 
 @final
 class GetAttractionList:
-    '''Self contained service object for extracting short information about all attractions. '''
+    '''
+    Self contained callable service object that extractes short information about all attractions.
+    '''
 
-    def __call__(self) -> list[AttractionPreview]:
-        raw_data = self._fetch_data()
-        result = [AttractionPreview(*row) for row in raw_data]
-        return result
+    # Define type aliases
+    _RawData = list[tuple[int, str, str]]
+    _Output = list[AttractionPreview]
 
 
-    def _fetch_data(self) -> list[tuple[int, str, str]]:
+    def __call__(self) -> Result['_Output', Exception]:
+        selection_result = self._fetch_data()
+        if not is_successful(selection_result):
+            return Failure(selection_result.failure())
+        attraction_previews = [AttractionPreview(*row) for row in selection_result.unwrap()]
+        return Success(attraction_previews)
+
+
+    @safe
+    def _fetch_data(self) -> _RawData:
         extracted_field_names = ('id', 'name', 'short_info')
         query = models.Attraction.objects.values_list(*extracted_field_names)
+        if not query.exists():
+            raise DataMissingError('message')
         return list(query.iterator())

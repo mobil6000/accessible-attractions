@@ -11,5 +11,5 @@ def index(request: HttpRequest) -> HttpResponse:
 
 def show_attractions_list(request: HttpRequest) -> HttpResponse:
     service_object = GetAttractionList()
-    attractions = service_object()
-    return render(request, 'main/attractions.html', {'attraction_list': attractions})
+    result = service_object()
+    return render(request, 'main/attractions.html', {'attraction_list': result.unwrap()})
