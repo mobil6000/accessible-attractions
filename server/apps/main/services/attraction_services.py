@@ -1,19 +1,15 @@
-# Business logic of application
-from typing import final, NamedTuple
+'''
+Set of service objects that manipulate data about attractions and other related information.
+'''
+
+from typing import final
 
 from returns.pipeline import is_successful
 from returns.result import Failure, Result, safe, Success
 
 from server.apps.main import models
+from .entities import AttractionPreview
 from .exceptions import DataMissingError
-
-
-
-@final
-class AttractionPreview(NamedTuple):
-    attraction_id: int
-    name: str
-    short_info: str
 
 
 
