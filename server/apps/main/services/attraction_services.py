@@ -37,5 +37,5 @@ class GetAttractionList:
         extracted_field_names = ('id', 'name', 'short_info')
         query = models.Attraction.objects.values_list(*extracted_field_names)
         if not query.exists():
-            raise DataMissingError('message')
+            raise DataMissingError('not a single attraction was found')
         return list(query.iterator())
