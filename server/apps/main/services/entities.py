@@ -11,3 +11,10 @@ class AttractionPreview(NamedTuple):
     attraction_id: int
     name: str
     short_info: str
+
+
+
+@final
+class AttractionDetail(NamedTuple):
+    title: str
+    description: str
