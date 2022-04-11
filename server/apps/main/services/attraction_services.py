@@ -4,12 +4,12 @@ Set of service objects that manipulate data about attractions and other related 
 
 from typing import final
 
-from returns.pipeline import is_successful
 from returns.result import Failure, Result, safe, Success
 
 from server.apps.main import models
 from .entities import AttractionPreview
 from .exceptions import DataMissingError
+from .helpers import is_successful_result
 
 
 
@@ -26,7 +26,7 @@ class GetAttractionList:
 
     def __call__(self) -> Result['_Output', Exception]:
         selection_result = self._fetch_data()
-        if not is_successful(selection_result):
+        if not is_successful_result(selection_result):
             return Failure(selection_result.failure())
         attraction_previews = [AttractionPreview(*row) for row in selection_result.unwrap()]
         return Success(attraction_previews)
