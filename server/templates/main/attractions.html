@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Культурные объекты г. Москвы{% endblock %}
+{% block title %}Культурные объекты Москвы{% endblock %}
 
 
 {% block content %}
@@ -12,7 +12,7 @@
 <li>
     <p>{{ attraction.name }}</p>
     <p>{{ attraction.short_info }}</p>
-    <a href="">Читать далее...</a>
+    <a href="{% url 'attraction_detail' attraction.attraction_id %}">Читать далее...</a>
 </li>
 {% endfor %}
 </ul>
