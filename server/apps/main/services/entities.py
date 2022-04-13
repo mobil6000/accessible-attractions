@@ -18,3 +18,10 @@ class AttractionPreview(NamedTuple):
 class AttractionDetail(NamedTuple):
     title: str
     description: str
+
+
+
+@final
+class Route(NamedTuple):
+    title: str
+    text_description: str
