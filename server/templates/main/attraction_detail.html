@@ -7,5 +7,7 @@
 
 <h1>Описание</h1>
 <article class="reach_text">{{ attraction.description }}</article>
+<br>
+<a href="{% url 'routes' attraction_id %}">Как добраться?</a>
 
 {% endblock %}
