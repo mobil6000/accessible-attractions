@@ -143,7 +143,7 @@ header {
 .rich_text {
     text-align: center;
     color: #000000;
-    font: 50px Courier New;
+    font: 30px Courier New;
     border: 1px solid red;
     padding: 10px;
 }

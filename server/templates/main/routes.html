@@ -4,10 +4,11 @@
 
 
 {% block content %}
-<p class="reach_text">Ближайшие станции метро:</p>
+
+<p class="rich_text">Ближайшие станции метро:</p>
 <ul>
     {% for name in metro_station_names %}
-    <li class="reach_text">{{ name }}</li>
+    <li class="rich_text">{{ name }}</li>
     {% endfor %}
 </ul>
 <br>
@@ -15,7 +16,7 @@
 
 {% for route in routes %}
 <h1>{{ route.title }}</h1>
-<article class="reach_text">{{ route.text_description }}</article>
+<article class="rich_text">{{ route.text_description }}</article>
 <br>
 {% endfor %}
 

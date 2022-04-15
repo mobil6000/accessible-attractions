@@ -6,8 +6,8 @@
 {% block content %}
 
 <h1>Описание</h1>
-<article class="reach_text">{{ attraction.description }}</article>
+<article class="rich_text">{{ attraction.description }}</article>
 <br>
-<a href="{% url 'routes' attraction_id %}">Как добраться?</a>
+<a href="{% url 'routes' attraction_id %}"> <p class="rich_text">Как добраться?</p> </a>
 
 {% endblock %}
