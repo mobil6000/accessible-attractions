@@ -24,8 +24,8 @@ def get_attraction_detail(attraction_id: int) -> Result['AttractionDetail', Erro
     result_of_selection = __fetch_attraction_detail_data(attraction_id)
     if not is_successful_result(result_of_selection):
         return Failure(ErrorReason('error'))
-    title, description = result_of_selection.unwrap()
-    return Success(AttractionDetail(title, description))
+    raw_data = result_of_selection.unwrap()
+    return Success(AttractionDetail(**raw_data))
 
 
 def get_metro_stations_for_attraction(
@@ -50,9 +50,13 @@ def __fetch_attraction_preview_data() -> list[tuple[int, str, str]]:
 
 
 @safe
-def __fetch_attraction_detail_data(attraction_id: int) -> tuple[str, str]:
-    field_names = ('name', 'description',)
-    data = Attraction.objects.values_list(*field_names).get(id=attraction_id)
+def __fetch_attraction_detail_data(attraction_id: int) -> dict[str, str]:
+    model: Attraction = Attraction.objects.get(id=attraction_id)
+    data = {
+        'title': model.name,
+        'description': model.description,
+        'audio_description_url': model.audio_description.url,
+    }
     return data
 
 

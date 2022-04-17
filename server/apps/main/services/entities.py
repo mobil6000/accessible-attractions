@@ -18,6 +18,7 @@ class AttractionPreview(NamedTuple):
 class AttractionDetail(NamedTuple):
     title: str
     description: str
+    audio_description_url: str
 
 
 
