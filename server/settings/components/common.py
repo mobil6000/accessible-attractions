@@ -2,6 +2,9 @@
 Common django settings for project
 '''
 
+from server.settings.components import BASE_DIR
+
+
 
 # Application definition
 INSTALLED_APPS: tuple[str, ...] = (
@@ -45,6 +48,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ROOT_URLCONF = 'server.urls'
 WSGI_APPLICATION = 'server.wsgi.application'
+
+# Media files
+# Media root dir is commonly changed in production
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # Internationalization
 LANGUAGE_CODE = 'ru-RU'
