@@ -8,6 +8,12 @@
 <h1>Описание</h1>
 <article class="rich_text">{{ attraction.description }}</article>
 <br>
+<figure>
+    <figcaption>Слушать аудио описание:</figcaption>
+    <audio controls src="{{ attraction.audio_description_url }}"> Your browser does not support the <code>audio</code> element. </audio>
+</figure>
+<br>
+
 <a href="{% url 'routes' attraction_id %}"> <p class="rich_text">Как добраться?</p> </a>
 
 {% endblock %}
