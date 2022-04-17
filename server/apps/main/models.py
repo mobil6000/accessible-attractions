@@ -9,6 +9,12 @@ class Attraction(models.Model):
     name = models.CharField(max_length=128, unique=True, verbose_name='Название')
     short_info = models.CharField(max_length=256, unique=True, verbose_name='краткое описание')
     description = models.TextField(verbose_name='Описание')
+    audio_description = models.FileField(
+        upload_to='audio',
+        null=True,
+        blank=True,
+        verbose_name='Аудио описание'
+    )
 
 
     class Meta:
