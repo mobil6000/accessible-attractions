@@ -5,6 +5,11 @@
 
 {% block content %}
 
+{% for image in attraction.related_photos %}
+<img src="{{ image.image_url }}" alt="{{ image.caption }}">
+<br>
+{% endfor %}
+
 <h1>Описание</h1>
 <article class="rich_text">{{ attraction.description }}</article>
 <br>
