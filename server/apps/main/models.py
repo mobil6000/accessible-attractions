@@ -24,7 +24,30 @@ class Attraction(models.Model):
 
 
     def __str__(self) -> str:
-        return 'Attraction <{0}>'.format(self.name)
+        return 'Attraction <{}>'.format(self.name)
+
+
+
+@final
+class Photo(models.Model):
+    attraction = models.ForeignKey(
+        to=Attraction,
+        on_delete=models.CASCADE,
+        related_name='photos'
+    )
+
+    caption = models.CharField(max_length=128, unique=True, verbose_name='Подпись')
+    image = models.ImageField(upload_to='photo', verbose_name='Изображение')
+
+
+    class Meta:
+        db_table = 'photos'
+        verbose_name = 'Фотография'
+        verbose_name_plural = 'Фотографии'
+
+
+    def __str__(self) -> str:
+        return 'photo <{}>'.format(self.caption)
 
 
 
@@ -58,4 +81,4 @@ class MetroStation(models.Model):
 
 
     def __str__(self) -> str:
-        return 'MetroStation:<{0}>'.format(self.station_name)
+        return 'MetroStation:<{}>'.format(self.station_name)
