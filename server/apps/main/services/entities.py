@@ -2,6 +2,7 @@
 Business entities used in the service layer.
 '''
 
+from dataclasses import dataclass
 from typing import final, NamedTuple
 
 
@@ -15,10 +16,19 @@ class AttractionPreview(NamedTuple):
 
 
 @final
-class AttractionDetail(NamedTuple):
+class AttractionImage(NamedTuple):
+    caption: str
+    image_url: str
+
+
+
+@final
+@dataclass
+class AttractionDetail:
     title: str
-    description: str
-    audio_description_url: str
+    description: str | None = None
+    audio_description_url: str | None = None
+    related_photos: list[AttractionImage] | None = None
 
 
 

@@ -4,8 +4,8 @@ Set of service functions that manipulate data about attractions and other relate
 
 from returns.result import Failure, Result, safe, Success
 
-from server.apps.main.models import Attraction, MetroStation
-from .entities import AttractionDetail, AttractionPreview, Route
+from server.apps.main.models import Attraction, MetroStation, Photo
+from .entities import AttractionDetail, AttractionImage, AttractionPreview, Route
 from .exceptions import DataMissingError
 from .helpers import ErrorReason, is_successful_result
 
@@ -24,8 +24,15 @@ def get_attraction_detail(attraction_id: int) -> Result['AttractionDetail', Erro
     result_of_selection = __fetch_attraction_detail_data(attraction_id)
     if not is_successful_result(result_of_selection):
         return Failure(ErrorReason('error'))
-    raw_data = result_of_selection.unwrap()
-    return Success(AttractionDetail(**raw_data))
+    attraction_data, attraction_image_data = result_of_selection.unwrap()
+    result_object = AttractionDetail(attraction_data.name)
+    result_object.description = attraction_data.description
+    result_object.audio_description_url = attraction_data.audio_description.url
+    result_object.related_photos = [
+        AttractionImage(item.caption, item.image.url)
+        for item in attraction_image_data
+    ]
+    return Success(result_object)
 
 
 def get_metro_stations_for_attraction(
@@ -50,14 +57,10 @@ def __fetch_attraction_preview_data() -> list[tuple[int, str, str]]:
 
 
 @safe
-def __fetch_attraction_detail_data(attraction_id: int) -> dict[str, str]:
-    model: Attraction = Attraction.objects.get(id=attraction_id)
-    data = {
-        'title': model.name,
-        'description': model.description,
-        'audio_description_url': model.audio_description.url,
-    }
-    return data
+def __fetch_attraction_detail_data(attraction_id: int) -> tuple[Attraction, list[Photo]]:
+    attraction_data: Attraction = Attraction.objects.get(id=attraction_id)
+    attraction_image_data = list(attraction_data.photos.all())
+    return attraction_data, attraction_image_data
 
 
 @safe
