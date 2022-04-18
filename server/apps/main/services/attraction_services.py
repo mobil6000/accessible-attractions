@@ -2,6 +2,7 @@
 Set of service functions that manipulate data about attractions and other related information.
 '''
 
+from markdown import markdown
 from returns.result import Failure, Result, safe, Success
 
 from server.apps.main.models import Attraction, MetroStation, Photo
@@ -26,7 +27,7 @@ def get_attraction_detail(attraction_id: int) -> Result['AttractionDetail', Erro
         return Failure(ErrorReason('error'))
     attraction_data, attraction_image_data = result_of_selection.unwrap()
     result_object = AttractionDetail(attraction_data.name)
-    result_object.description = attraction_data.description
+    result_object.description = markdown(attraction_data.description)
     result_object.audio_description_url = attraction_data.audio_description.url
     result_object.related_photos = [
         AttractionImage(item.caption, item.image.url)

@@ -11,7 +11,7 @@
 {% endfor %}
 
 <h1>Описание</h1>
-<article class="rich_text">{{ attraction.description }}</article>
+<article class="rich_text">{{ attraction.description|safe }}</article>
 <br>
 <figure>
     <figcaption>Слушать аудио описание:</figcaption>
