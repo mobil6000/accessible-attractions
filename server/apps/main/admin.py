@@ -1,14 +1,21 @@
 from django.contrib import admin
 
-from server.apps.main.models import Attraction, MetroStation
+from .models import Attraction, MetroStation, Photo
 
 
-class MetroStationInline(admin.StackedInline):
-    model = MetroStation
+
+class PhotoInline(admin.StackedInline):
+    model = Photo
     extra = 1
 
 
 @admin.register(Attraction)
 class AttractionAdmin(admin.ModelAdmin[Attraction]):
     '''Admin panel object for ``Attraction`` model.'''
-    inlines = (MetroStationInline,)
+    inlines = (PhotoInline,)
+
+
+@admin.register(MetroStation)
+class MetroStationAdmin(admin.ModelAdmin[Attraction]):
+    '''Admin panel object for ``MetroStation`` model.'''
+    pass
