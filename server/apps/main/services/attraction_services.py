@@ -70,6 +70,8 @@ def __fetch_data_of_metro_stations(related_attraction_id: int) -> list[dict[str,
     query_set = MetroStation.objects.filter(
         attraction_id=related_attraction_id
     ).values(*field_names)
+    if not query_set.exists():
+        raise DataMissingError('not a single metro station was found')
     return list(query_set)
 
 
