@@ -2,9 +2,11 @@
 Common django settings for project
 '''
 
-from server.settings.components import BASE_DIR
+from server.settings.components import BASE_DIR, config
 
 
+
+SECRET_KEY = config('DJANGO_SECRET_KEY', default='unsecure')
 
 # Application definition
 INSTALLED_APPS: tuple[str, ...] = (
