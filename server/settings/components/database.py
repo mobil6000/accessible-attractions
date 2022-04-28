@@ -1,6 +1,6 @@
 '''Database settings'''
 
-from server.settings.components import BASE_DIR
+from server.settings.components import config
 
 
 
@@ -9,7 +9,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('POSTGRES_DB', default='unsecure'),
+        'USER': config('POSTGRES_USER', default='unsecure'),
+        'PASSWORD': config('POSTGRES_PASSWORD', default='uncecure'),
+        'HOST': config('DJANGO_DATABASE_HOST', default='unsecure'),
+        'PORT': config('DJANGO_DATABASE_PORT', default=5432, cast=int),
+        'CONN_MAX_AGE': config('CONN_MAX_AGE', cast=int, default=60),
+        'OPTIONS': {
+            'connect_timeout': 10,
+            'options': '-c statement_timeout=15000ms',
+        },
+    },
 }
