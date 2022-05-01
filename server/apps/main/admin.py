@@ -4,7 +4,7 @@ from .models import Attraction, MetroStation, Photo
 
 
 
-class PhotoInline(admin.StackedInline):
+class PhotoInline(admin.StackedInline[Photo]):
     model = Photo
     extra = 1
 
