@@ -3,28 +3,28 @@ Set of service functions that manipulate data about attractions and other relate
 '''
 
 from markdown import markdown
-from returns.result import Failure, Result, safe, Success
+from result import as_result, Err, Ok, Result
 
 from server.apps.main.models import Attraction, MetroStation, Photo
 from .entities import AttractionDetail, AttractionImage, AttractionPreview, Route
 from .exceptions import DataMissingError
-from .helpers import ErrorReason, is_successful_result
+from .helpers import ErrorReason
 
 
 
-def get_attraction_previews() -> Result['list[AttractionPreview]', ErrorReason]:
+def get_attraction_previews() -> Result[list[AttractionPreview], ErrorReason]:
     '''Extractes short information about all attractions'''
     result_of_selection = __fetch_attraction_preview_data()
-    if not is_successful_result(result_of_selection):
-        return Failure(ErrorReason('error'))
+    if not isinstance(result_of_selection, Ok):
+        return Err(ErrorReason('error'))
     attraction_previews = [AttractionPreview(*row) for row in result_of_selection.unwrap()]
-    return Success(attraction_previews)
+    return Ok(attraction_previews)
 
 
-def get_attraction_detail(attraction_id: int) -> Result['AttractionDetail', ErrorReason]:
+def get_attraction_detail(attraction_id: int) -> Result[AttractionDetail, ErrorReason]:
     result_of_selection = __fetch_attraction_detail_data(attraction_id)
-    if not is_successful_result(result_of_selection):
-        return Failure(ErrorReason('error'))
+    if not isinstance(result_of_selection, Ok):
+        return Err(ErrorReason('error'))
     attraction_data, attraction_image_data = result_of_selection.unwrap()
     result_object = AttractionDetail(attraction_data.name)
     result_object.description = markdown(attraction_data.description)
@@ -33,22 +33,22 @@ def get_attraction_detail(attraction_id: int) -> Result['AttractionDetail', Erro
         AttractionImage(item.caption, item.image.url)
         for item in attraction_image_data
     ]
-    return Success(result_object)
+    return Ok(result_object)
 
 
 def get_metro_stations_for_attraction(
     attraction_id: int
-) -> Result['tuple[list[str], list[Route]]', ErrorReason]:
+) -> Result[tuple[list[str], list[Route]], ErrorReason]:
     result_of_selection = __fetch_data_of_metro_stations(attraction_id)
-    if not is_successful_result(result_of_selection):
-        return Failure(ErrorReason('Error'))
+    if not isinstance(result_of_selection, Ok):
+        return Err(ErrorReason('Error'))
     raw_data = result_of_selection.unwrap()
     metro_station_names = __generate_metro_station_names(raw_data)
     routes = __generate_routes(raw_data)
-    return Success((metro_station_names, routes))
+    return Ok((metro_station_names, routes))
 
 
-@safe
+@as_result(Exception)
 def __fetch_attraction_preview_data() -> list[tuple[int, str, str]]:
     field_names = ('id', 'name', 'short_info',)
     query_set = Attraction.objects.values_list(*field_names)
@@ -57,14 +57,14 @@ def __fetch_attraction_preview_data() -> list[tuple[int, str, str]]:
     return list(query_set.iterator())
 
 
-@safe
+@as_result(Exception)
 def __fetch_attraction_detail_data(attraction_id: int) -> tuple[Attraction, list[Photo]]:
     attraction_data: Attraction = Attraction.objects.get(id=attraction_id)
     attraction_image_data = list(attraction_data.photos.all())
     return attraction_data, attraction_image_data
 
 
-@safe
+@as_result(Exception)
 def __fetch_data_of_metro_stations(related_attraction_id: int) -> list[dict[str, str]]:
     field_names = ('station_name', 'station_type', 'route_from_station', 'route_to_station')
     query_set = MetroStation.objects.filter(
