@@ -1,18 +1,19 @@
-from typing import final, NewType
+from typing import Any, Callable, NewType
+
+from django.db import Error as DBError
+from result import Err
 
 
 
 ErrorReason = NewType('ErrorReason', str)
 
 
-@final
-class DataMissingError(Exception):
-    '''Exception raising in the absence of the requested data'''
+def catch_database_errors(func: Callable[..., Any]):
+    def wrapper(*args, **kwargs) -> Err[ErrorReason]:
+        try:
+            func(*args, **kwargs)
+        except DBError as catched_exception:
+            msg = str(catched_exception)
+        return Err(ErrorReason(msg))
 
-    def __init__(self, error_message: str):
-        self.message = error_message
-        super().__init__(self, error_message)
-
-
-    def __str__(self) -> str:
-        return 'DataMissingError: {0}'.format(self.message)
+    return wrapper

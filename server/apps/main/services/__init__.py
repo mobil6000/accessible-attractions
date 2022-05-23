@@ -1,5 +1,3 @@
-from .attraction_services import (
-    get_attraction_detail,
-    get_attraction_previews,
-    get_metro_stations_for_attraction,
-)
+from .get_attraction_detail import get_attraction_detail
+from .get_attraction_previews import get_attraction_previews
+from .get_metro_stations_for_attraction import get_metro_stations_for_attraction
