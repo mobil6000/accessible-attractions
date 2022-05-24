@@ -9,6 +9,7 @@ on:
     branches: [ master ]
 
 
+
 jobs:
   run_tests:
     runs-on: [ubuntu-latest]
@@ -17,23 +18,32 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@master
 
+
       - name: Set up python
         uses: actions/setup-python@v2
         with:
           python-version: '3.10'
           architecture: 'x64'
 
+
       - name: Install poetry
         uses: snok/install-poetry@v1
         with:
-          vertualenvs-create: true
+          virtualenvs-create: true
           installer-parallel: true
+
 
       - name: Install dependencies
         run: poetry install
 
+
+      - name: Configure the project
+        run: poetry run dump-env -t config/.env.template -p 'SECRET_' > config/.env
+
+
       - name: run linting
         run: |
+          poetry run dotenv-linter config/.env config/.env.template
           poetry run flake8
           poetry run mypy
           poetry run pytest

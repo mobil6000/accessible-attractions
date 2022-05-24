@@ -66,6 +66,28 @@ optional = false
 python-versions = ">=3.6.1"
 
 [[package]]
+name = "click"
+version = "8.1.3"
+description = "Composable command line interface toolkit"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[[package]]
+name = "click-default-group"
+version = "1.2.2"
+description = "Extends click.Group to invoke a command without explicit subcommand name"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+click = "*"
+
+[[package]]
 name = "colorama"
 version = "0.4.4"
 description = "Cross-platform colored terminal text."
@@ -134,6 +156,29 @@ python-versions = ">=3.6"
 [package.dependencies]
 django = "*"
 typing-extensions = "*"
+
+[[package]]
+name = "dotenv-linter"
+version = "0.3.0"
+description = "Linting dotenv files like a charm!"
+category = "dev"
+optional = false
+python-versions = ">=3.6,<4.0"
+
+[package.dependencies]
+attrs = "*"
+click = ">=6,<9"
+click_default_group = ">=1.2,<2.0"
+ply = ">=3.11,<4.0"
+typing_extensions = ">=3.6,<5.0"
+
+[[package]]
+name = "dump-env"
+version = "1.3.0"
+description = "A utility tool to create .env files"
+category = "dev"
+optional = false
+python-versions = ">=3.6,<4.0"
 
 [[package]]
 name = "filelock"
@@ -307,6 +352,14 @@ python-versions = ">=3.6"
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
+
+[[package]]
+name = "ply"
+version = "3.11"
+description = "Python Lex & Yacc"
+category = "dev"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "pre-commit"
@@ -528,7 +581,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "356911adaa5c8c43ae702b2fc934ea530a08d81dc586c529c24845abf5fd1f1c"
+content-hash = "86d45ccbc4297893b258920cf7fcceb514895659f3c868acaf52db8b4e69d51d"
 
 [metadata.files]
 asgiref = [
@@ -612,6 +665,13 @@ cfgv = [
     {file = "cfgv-3.3.1-py2.py3-none-any.whl", hash = "sha256:c6a0883f3917a037485059700b9e75da2464e6c27051014ad85ba6aaa5884426"},
     {file = "cfgv-3.3.1.tar.gz", hash = "sha256:f5a830efb9ce7a445376bb66ec94c638a9787422f96264c98edc6bdeed8ab736"},
 ]
+click = [
+    {file = "click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
+    {file = "click-8.1.3.tar.gz", hash = "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e"},
+]
+click-default-group = [
+    {file = "click-default-group-1.2.2.tar.gz", hash = "sha256:d9560e8e8dfa44b3562fbc9425042a0fd6d21956fcc2db0077f63f34253ab904"},
+]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
@@ -635,6 +695,14 @@ django-stubs = [
 django-stubs-ext = [
     {file = "django-stubs-ext-0.3.1.tar.gz", hash = "sha256:783c198d7e39a41be0b90fd843fa2770243a642922af679be4b19e03b82c8c28"},
     {file = "django_stubs_ext-0.3.1-py3-none-any.whl", hash = "sha256:a51a3e9e844d4e1cacaaedbb33bf3def78a3956eed5d9575a640bd97ccd99cec"},
+]
+dotenv-linter = [
+    {file = "dotenv-linter-0.3.0.tar.gz", hash = "sha256:0cb053be76575d54915607587f26cc51844fe14a803a7a5a1c9ceb5bf78ea595"},
+    {file = "dotenv_linter-0.3.0-py3-none-any.whl", hash = "sha256:3f0681edc4a7518ec7b3731384c8589db6a5f6839d9466bbeadaa614c6a2981a"},
+]
+dump-env = [
+    {file = "dump-env-1.3.0.tar.gz", hash = "sha256:6c2874c7f30c7cea945f3438e37e67e081644bd6c5383189613e5fc31c277837"},
+    {file = "dump_env-1.3.0-py3-none-any.whl", hash = "sha256:c2f3bdda16f0dbb79fca0b22f8df763cff4009d311342c73ce36bcd1ad8b007c"},
 ]
 filelock = [
     {file = "filelock-3.7.0-py3-none-any.whl", hash = "sha256:c7b5fdb219b398a5b28c8e4c1893ef5f98ece6a38c6ab2c22e26ec161556fed6"},
@@ -751,6 +819,10 @@ platformdirs = [
 pluggy = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
+]
+ply = [
+    {file = "ply-3.11-py2.py3-none-any.whl", hash = "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"},
+    {file = "ply-3.11.tar.gz", hash = "sha256:00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3"},
 ]
 pre-commit = [
     {file = "pre_commit-2.19.0-py2.py3-none-any.whl", hash = "sha256:10c62741aa5704faea2ad69cb550ca78082efe5697d6f04e5710c3c229afdd10"},
