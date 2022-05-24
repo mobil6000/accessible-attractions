@@ -1,7 +1,7 @@
-from markdown import markdown
 from result import Err, Ok, Result
 
 from server.apps.main.models import Attraction, Photo
+from server.utilites import md_to_html
 from .entities import AttractionDetail, AttractionImage
 from .helpers import catch_database_errors, ErrorReason
 
@@ -23,7 +23,7 @@ def _fetch_data(attraction_id: int) -> Result[tuple[Attraction, list[Photo]], Er
 
 def _construct_total_object(raw_data: tuple[Attraction, list[Photo]]) -> AttractionDetail:
     result_object = AttractionDetail(raw_data[0].name)
-    result_object.description = markdown(raw_data[0].description)
+    result_object.description = md_to_html(raw_data[0].description)
     result_object.audio_description_url = raw_data[0].audio_description.url
     result_object.related_photos = [
         AttractionImage(item.caption, item.image.url)

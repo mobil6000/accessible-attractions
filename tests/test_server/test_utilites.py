@@ -1,7 +1,7 @@
 from django.db.models import Model
 from pytest import fixture
 
-from server.utilites import build_upload_path
+from server.utilites import build_upload_path, md_to_html
 
 
 
@@ -20,3 +20,9 @@ def test_build_upload_path(fake_django_model: Model) -> None:
     expected_path = result_function(fake_django_model, 'file1.docx')
     assert expected_path.startswith(fake_upload_dir_name)
     assert expected_path.endswith('docx')
+
+
+def test_md_to_html() -> None:
+    expected_result = '<p><strong>Text! </strong></p>'
+    real_result = md_to_html('**Text! **')
+    assert expected_result == real_result
