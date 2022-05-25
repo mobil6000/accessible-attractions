@@ -1,3 +1,4 @@
+from functools import partial
 from typing import final
 
 from django.db import models
@@ -12,7 +13,7 @@ class Attraction(models.Model):
     short_info = models.CharField(max_length=256, unique=True, verbose_name='краткое описание')
     description = models.TextField(verbose_name='Описание')
     audio_description = models.FileField(
-        upload_to=build_upload_path('audio'),
+        upload_to=partial(build_upload_path, 'audio'),
         null=True,
         blank=True,
         verbose_name='Аудио описание'
@@ -39,7 +40,10 @@ class Photo(models.Model):
     )
 
     caption = models.CharField(max_length=128, unique=True, verbose_name='Подпись')
-    image = models.ImageField(upload_to=build_upload_path('photo'), verbose_name='Изображение')
+    image = models.ImageField(
+        upload_to=partial(build_upload_path, 'photo'),
+        verbose_name='Изображение'
+    )
 
 
     class Meta:
@@ -84,3 +88,18 @@ class MetroStation(models.Model):
 
     def __str__(self) -> str:
         return 'MetroStation:<{}>'.format(self.station_name)
+
+
+
+@final
+class AboutUsPage(models.Model):
+    content = models.TextField(verbose_name='Текст')
+
+
+    class Meta:
+        db_table = 'about_us_page'
+        verbose_name = 'О нас'
+
+
+    def __str__(self) -> str:
+        return '<about> page'

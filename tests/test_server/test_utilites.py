@@ -16,8 +16,7 @@ def fake_django_model() -> Model:
 
 def test_build_upload_path(fake_django_model: Model) -> None:
     fake_upload_dir_name = 'downloads'
-    result_function = build_upload_path(fake_upload_dir_name)
-    expected_path = result_function(fake_django_model, 'file1.docx')
+    expected_path = build_upload_path(fake_django_model, 'file1.docx', fake_upload_dir_name)
     assert expected_path.startswith(fake_upload_dir_name)
     assert expected_path.endswith('docx')
 
