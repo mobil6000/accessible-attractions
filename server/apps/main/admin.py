@@ -14,7 +14,6 @@ class PhotoInline(admin.StackedInline[Photo]):
 @admin.register(Attraction)
 class AttractionAdmin(admin.ModelAdmin[Attraction]):
     '''Admin panel object for ``Attraction`` model.'''
-    exclude = ('routes_audio',)
     inlines = (PhotoInline,)
 
 
@@ -22,13 +21,7 @@ class AttractionAdmin(admin.ModelAdmin[Attraction]):
 @admin.register(MetroStation)
 class MetroStationAdmin(admin.ModelAdmin[MetroStation]):
     '''Admin panel object for ``MetroStation`` model.'''
-    fields = (
-        'Attraction.routes_audio',
-        'station_name',
-        'station_type',
-        'route_from_station',
-        'route_to_station'
-    )
+    pass
 
 
 
