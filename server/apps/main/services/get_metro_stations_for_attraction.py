@@ -1,9 +1,12 @@
 from result import Err, Ok, Result
 
-from server.apps.main.models import MetroStation
-from .entities import Route
+from server.apps.main.models import MetroStation, Route
+from .entities import RouteEntry, RouteTextRecord
 from .helpers import catch_database_errors, ErrorReason
 
+
+
+_RawData = tuple[str, list[dict[str, str]]]
 
 
 def get_metro_stations_for_attraction(
@@ -13,22 +16,28 @@ def get_metro_stations_for_attraction(
 
 
 @catch_database_errors
-def _fetch_data(related_attraction_id: int) -> Result[list[dict[str, str]], ErrorReason]:
+def _fetch_data(related_attraction_id: int) -> Result[_RawData, ErrorReason]:
+    try:
+        route_model: Route = Route.objects.get(attraction_id=related_attraction_id)
+    except Route.DoesNotExist as catched_exception:
+        return Err(ErrorReason(str(catched_exception)))
+
     field_names = ('station_name', 'station_type', 'route_from_station', 'route_to_station')
-    query_set = MetroStation.objects.filter(
-        id=related_attraction_id
-    ).values(*field_names)
+    query_set = route_model.metro_stations.values(*field_names).all()
     data = list(query_set)
     if not data:
         return Err(ErrorReason('not a single metro station was found'))
     else:
-        return Ok(data)
+        return Ok((route_model.audio_description.url, data))
 
 
-def _build_total_result(raw_data: list[dict[str, str]]) -> tuple[list[str], list[Route]]:
-    metro_station_names = _generate_metro_station_names(raw_data)
-    routes = _generate_routes(raw_data)
-    return metro_station_names, routes
+def _build_total_result(raw_data: _RawData) -> RouteEntry:
+    route_entry = RouteEntry(
+        audio_description=raw_data[0],
+        nearest_metro_station_names=_generate_metro_station_names(raw_data[1]),
+        route_text_records=_generate_route_text_records(raw_data[1]),
+    )
+    return route_entry
 
 
 def _generate_metro_station_names(raw_data: list[dict[str, str]]) -> list[str]:
@@ -42,11 +51,15 @@ def _generate_metro_station_names(raw_data: list[dict[str, str]]) -> list[str]:
     return names
 
 
-def _generate_routes(raw_data: list[dict[str, str]]) -> list[Route]:
+def _generate_route_text_records(raw_data: list[dict[str, str]]) -> list[RouteTextRecord]:
     template1 = 'маршрут от станции {} до объекта'
     template2 = 'маршрут от объекта до станции {}'
     routes = []
     for entry in raw_data:
-        routes.append(Route(template1.format(entry['station_name']), entry['route_from_station']))
-        routes.append(Route(template2.format(entry['station_name']), entry['route_to_station']))
+        routes.append(RouteTextRecord(template1.format(
+            entry['station_name']), entry['route_from_station']
+        ))
+        routes.append(RouteTextRecord(template2.format(
+            entry['station_name']), entry['route_to_station']
+        ))
     return routes

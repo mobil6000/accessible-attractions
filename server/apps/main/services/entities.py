@@ -33,6 +33,14 @@ class AttractionDetail:
 
 
 @final
-class Route(NamedTuple):
+class RouteTextRecord(NamedTuple):
     title: str
     text_description: str
+
+
+
+@dataclass
+class RouteEntry:
+    audio_description: str
+    nearest_metro_station_names: list[str]
+    route_text_records: list[RouteTextRecord]
