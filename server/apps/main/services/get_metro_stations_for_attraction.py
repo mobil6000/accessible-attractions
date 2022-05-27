@@ -16,7 +16,7 @@ def get_metro_stations_for_attraction(
 def _fetch_data(related_attraction_id: int) -> Result[list[dict[str, str]], ErrorReason]:
     field_names = ('station_name', 'station_type', 'route_from_station', 'route_to_station')
     query_set = MetroStation.objects.filter(
-        attraction_id=related_attraction_id
+        id=related_attraction_id
     ).values(*field_names)
     data = list(query_set)
     if not data:

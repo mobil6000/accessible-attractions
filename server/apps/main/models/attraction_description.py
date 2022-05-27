@@ -18,12 +18,6 @@ class Attraction(models.Model):
         blank=True,
         verbose_name='Аудио описание'
     )
-    routes_audio = models.FileField(
-        upload_to=partial(build_upload_path, base_path='audio'),
-        null=True,
-        blank=True,
-        verbose_name='Аудио описание маршрутов'
-    )
 
 
     class Meta:
