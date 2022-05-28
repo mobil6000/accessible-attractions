@@ -1,13 +1,19 @@
 from django.contrib import admin
 from django.http import HttpRequest
 
-from .models import AboutUsPage, Attraction, MetroStation, Photo
+from .models import AboutUsPage, Attraction, MetroStation, Photo, Route
 
 
 
 class PhotoInline(admin.StackedInline[Photo]):
     model = Photo
     extra = 1
+
+
+
+class MetroStationInline(admin.StackedInline[MetroStation]):
+    model = MetroStation
+    extra = 3
 
 
 
@@ -18,10 +24,10 @@ class AttractionAdmin(admin.ModelAdmin[Attraction]):
 
 
 
-@admin.register(MetroStation)
-class MetroStationAdmin(admin.ModelAdmin[MetroStation]):
-    '''Admin panel object for ``MetroStation`` model.'''
-    pass
+@admin.register(Route)
+class RouteAdmin(admin.ModelAdmin[Route]):
+    '''Admin panel object for ``Route`` model.'''
+    inlines = (MetroStationInline,)
 
 
 
