@@ -33,17 +33,17 @@ jobs:
           installer-parallel: true
 
 
-      - name: Install dependencies
+      - name: Install project's dependencies
         run: poetry install
 
 
       - name: Configure the project
-        run: poetry run dump-env -t config/.env.template -p 'SECRET_' > config/.env
+        run: make .env
 
 
       - name: run linting
-        run: |
-          poetry run dotenv-linter config/.env config/.env.template
-          poetry run flake8
-          poetry run mypy
-          poetry run pytest
+        run: make lint
+
+
+      - name: run tests
+        run: make test
