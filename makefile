@@ -10,11 +10,11 @@ setup-development-env: install-dev-dependencies install-pre-commit-hook .env
 
 
 check-environment: .env
-	@poetry run dotenv-linter .env config/.env.template
+	@poetry run dotenv-linter .env config_templates/env.template
 
 
 .env:
-	@test ! -f .env && poetry run dump-env -t config/.env.template -p 'SECRET_' > .env
+	@test ! -f .env && poetry run dump-env -t config_templates/env.template -p 'SECRET_' > .env
 	@echo "if you are deploying a production environment, you must fix the values of the variables in the <.end> file according to your runtime!"
 
 
