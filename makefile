@@ -30,7 +30,15 @@ shell:
 	@poetry run python manage.py shell
 
 
+make-migrations:
+	@poetry run python manage.py makemigrations
+
+
+apply-migrations:
+	@poetry run python manage.py migrate
+
+
 run-dev-server:
 	poetry run python manage.py runserver
 
-.PHONY: setup-development-env lint test run-dev-server shell
+.PHONY: setup-development-env lint test make-migrations apply-migrations run-dev-server shell
