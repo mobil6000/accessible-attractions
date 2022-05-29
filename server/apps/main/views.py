@@ -33,8 +33,7 @@ def show_routes_for_attraction(request: HttpRequest, attraction_id: int) -> Http
     result = get_metro_stations_for_attraction(attraction_id)
     if not result.is_ok():
         raise Http404('error!')
-    metro_station_names, routes = result.unwrap()
-    response_context = {'metro_station_names': metro_station_names, 'routes': routes}
+    response_context = {'content': result.unwrap()}
     return render(request, 'main/routes.html', response_context)
 
 

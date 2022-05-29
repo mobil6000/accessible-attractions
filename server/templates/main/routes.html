@@ -7,14 +7,21 @@
 
 <p class="rich_text">Ближайшие станции метро:</p>
 <ul>
-    {% for name in metro_station_names %}
+    {% for name in content.nearest_metro_station_names %}
     <li class="rich_text">{{ name }}</li>
     {% endfor %}
 </ul>
 <br>
 
 
-{% for route in routes %}
+<figure>
+    <figcaption class="rich_text">Слушать аудио описание:</figcaption>
+    <audio controls src="{{ content.audio_description }}"> Your browser does not support the <code>audio</code> element. </audio>
+</figure>
+<br>
+
+
+{% for route in content.route_text_records %}
 <h1>{{ route.title }}</h1>
 <article class="rich_text">{{ route.text_description }}</article>
 <br>
