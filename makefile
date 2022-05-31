@@ -2,11 +2,16 @@ install-dev-dependencies:
 	@poetry check && poetry install
 
 
+install-prod-dependencies:
+	@poetry check && poetry install --no-dev
+
+
 install-pre-commit-hook:
 	@poetry run pre-commit install
 
 
 setup-development-env: install-dev-dependencies install-pre-commit-hook .env
+setup-production-env: install-prod-dependencies .env
 
 
 check-environment: .env
@@ -41,4 +46,4 @@ apply-migrations:
 run-dev-server:
 	poetry run python manage.py runserver
 
-.PHONY: setup-development-env lint test make-migrations apply-migrations run-dev-server shell
+.PHONY: setup-development-env setup-production-env lint test make-migrations apply-migrations run-dev-server shell
