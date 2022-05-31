@@ -6,7 +6,7 @@ from .helpers import catch_database_errors, ErrorReason
 
 
 
-_RawData = tuple[str, list[dict[str, str]]]
+_RawData = tuple[tuple[str, str], list[dict[str, str]]]
 
 
 def get_metro_stations_for_attraction(
@@ -28,12 +28,13 @@ def _fetch_data(related_attraction_id: int) -> Result[_RawData, ErrorReason]:
     if not data:
         return Err(ErrorReason('not a single metro station was found'))
     else:
-        return Ok((route_model.audio_description.url, data))
+        return Ok(((route_model.audio_description.url, route_model.address), data))
 
 
 def _build_total_result(raw_data: _RawData) -> RouteEntry:
     route_entry = RouteEntry(
-        audio_description=raw_data[0],
+        audio_description=raw_data[0][0],
+        address=raw_data[0][1],
         nearest_metro_station_names=_generate_metro_station_names(raw_data[1]),
         route_text_records=_generate_route_text_records(raw_data[1]),
     )

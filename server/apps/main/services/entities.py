@@ -42,5 +42,6 @@ class RouteTextRecord(NamedTuple):
 @dataclass
 class RouteEntry:
     audio_description: str
+    address: str
     nearest_metro_station_names: list[str]
     route_text_records: list[RouteTextRecord]
