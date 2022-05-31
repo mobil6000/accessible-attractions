@@ -16,6 +16,13 @@ class Route(models.Model):
         related_name='routes'
     )
 
+    address = models.CharField(
+        max_length=128,
+        default='undefined',
+        unique=True,
+        verbose_name='Адрес'
+    )
+
     audio_description = models.FileField(
         upload_to=partial(build_upload_path, base_path='audio'),
         null=True,
