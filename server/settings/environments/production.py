@@ -7,7 +7,7 @@ from server.settings.components import config
 
 
 DEBUG = False
-ALLOWED_HOSTS = [config('DOMAIN_NAME'), ]
+ALLOWED_HOSTS = ['.{}'.format(config('DOMAIN_NAME')), ]
 STATIC_ROOT = '/var/www/django/static'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 MEDIA_ROOT = '/var/www/django/media'
