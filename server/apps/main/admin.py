@@ -13,7 +13,7 @@ class PhotoInline(admin.StackedInline[Photo]):
 
 class MetroStationInline(admin.StackedInline[MetroStation]):
     model = MetroStation
-    extra = 3
+    extra = 1
 
 
 
