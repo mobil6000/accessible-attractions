@@ -19,20 +19,25 @@
 
 
 <body>
+
   <header>
-    <nev class="container">
-      <div class="logo"><img src="{% static 'images/logo.png' %}" alt="Logo"></div>
+    <div class="logo">
+      <img src="{% static 'images/image-logo.png' %}" alt="Logo">
+      <p>Мир путишествий и возможностей</p>
+    </div>
 
-      <form action="" method="get" id="search_form">
-        <input type="text" placeholder="Искать на сайте...">
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
+    <form action="" id="searchform" method="get">
+      <input type="text" placeholder="Искать на сайте...">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
 
-      <ul id="menu">
+    <nav>
+      <ul class="top-menu">
         <li><a href="{% url 'about' %}">О нас</a></li>
         <li><a href="{% url 'show_attraction_list' %}">Культурные объекты Москвы</a></li>
       </ul>
     </nev>
+
   </header>
 
 
@@ -51,6 +56,7 @@
       </div>
     </div>
   </footer>
+
 </body>
 
 </html>

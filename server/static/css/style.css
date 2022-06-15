@@ -1,25 +1,22 @@
-*, *::after, *::before {
-    box-sizing: border-box;
-    padding: 0;
-    marrgin: 0;
-    transition: .5s ease-in-out;
+body {
+    font-family: 'Open Sans', arial, sans-serif;
+    font-size: 14px;
+    line-height: 1;
+    color: #373737;
+    background: #f7f7f7;
 }
 
 
-ul {
-    list-style: none;
+header {
+    background: white;
+    box-shadow: 3px 3px 1px rgba(0, 0, 0, .05);
+    padding: 20px 0;
 }
 
 
 a {
     text-decoration: none;
     outline: none;
-}
-
-
-img {
-    display: block;
-    width: 70%;
 }
 
 
@@ -30,74 +27,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-body {
-    font-family: 'Open Sans', arial, sans-serif;
-    font-size: 14px;
-    line-height: 1;
-    color: #373737;
-    background: #f7f7f7;
-}
-
-
-header:after, .container:after, footer:after, .widget-posts-list li:after, #subscribe:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-
-.container {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 960px;
-    padding: 0 15px;
-}
-
-
-header {
-    width: 100%;
-    background: white;
-    box-shadow: 3px 3px 1px rgba(0, 0, 0, .05);
-    padding: 15px 0;
-    margin-bottom: 30px;
-    position: relative;
-}
-
-
 .logo {
-    display: block;
     float: left;
-}
-
-
-#menu {
-    float: right;
-}
-
-
-#menu li {
-    margin-right: 30px;
-}
-
-
-#menu a {
-    color: #111;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    font: 30px Courier New;
-    font-weight: 800;
     display: block;
-    line-height: 40px;
-}
-
-
-#menu a:hover {
-    color: #EF5A42;
-}
-
-
-#menu li:last-child {
-    margin-right: 0;
+    border: 1px solid blue;
+    margin: 2px;
 }
 
 
@@ -136,6 +70,51 @@ header {
 
 #searchform input:focus {
     outline: 2px solid #EBEBE3;
+}
+
+
+nav a {
+    text-decoration: none;
+}
+
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+
+nav li {
+    list-style-position: inside;
+    font: 30px Courier New;
+    padding: 30px;
+}
+
+
+.top-menu li {
+    display: inline-block;
+    padding: 10px 30px;
+    margin: 0;
+}
+
+
+.top-menu li.active {
+    background: #29c5e6;
+    color: #fff;
+}
+
+
+.top-menu a {
+    text-decoration: none;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 20px;
+    margin: 0 34px 0 30px;
+    font-size: 40px;
+    text-transform: uppercase;
+    display: inline-block;
+    transition: color .2s;
 }
 
 
