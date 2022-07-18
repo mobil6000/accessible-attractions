@@ -44,6 +44,6 @@ apply-migrations:
 
 
 run-dev-server:
-	poetry run python manage.py runserver
+	@poetry run python manage.py runserver
 
 .PHONY: setup-development-env setup-production-env lint test make-migrations apply-migrations run-dev-server shell

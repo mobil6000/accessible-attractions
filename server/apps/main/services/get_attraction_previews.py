@@ -3,7 +3,7 @@ from typing import final, NamedTuple
 from result import Err, Ok, Result
 
 from server.apps.main.models import Attraction
-from .helpers import catch_database_errors, ErrorReason
+from server.utilites import catch_database_errors, ErrorReason
 
 
 
