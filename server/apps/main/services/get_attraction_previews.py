@@ -1,9 +1,17 @@
+from typing import final, NamedTuple
+
 from result import Err, Ok, Result
 
 from server.apps.main.models import Attraction
-from .entities import AttractionPreview
 from .helpers import catch_database_errors, ErrorReason
 
+
+
+@final
+class AttractionPreview(NamedTuple):
+    attraction_id: int
+    name: str
+    short_info: str
 
 
 def get_attraction_previews() -> Result[list[AttractionPreview], ErrorReason]:

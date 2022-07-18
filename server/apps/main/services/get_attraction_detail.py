@@ -1,10 +1,27 @@
+from dataclasses import dataclass
+from typing import final, NamedTuple
+
 from result import Err, Ok, Result
 
 from server.apps.main.models import Attraction, Photo
 from server.utilites import md_to_html
-from .entities import AttractionDetail, AttractionImage
 from .helpers import catch_database_errors, ErrorReason
 
+
+
+@final
+class AttractionImage(NamedTuple):
+    caption: str
+    image_url: str
+
+
+@final
+@dataclass
+class AttractionDetail:
+    title: str
+    description: str | None = None
+    audio_description_url: str | None = None
+    related_photos: list[AttractionImage] | None = None
 
 
 def get_attraction_detail(attraction_id: int) -> Result[AttractionDetail, ErrorReason]:

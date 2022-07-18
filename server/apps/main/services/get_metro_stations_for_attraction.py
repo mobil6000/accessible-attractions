@@ -1,12 +1,28 @@
+from dataclasses import dataclass
+from typing import final, NamedTuple
+
 from result import Err, Ok, Result
 
 from server.apps.main.models import MetroStation, Route
-from .entities import RouteEntry, RouteTextRecord
 from .helpers import catch_database_errors, ErrorReason
 
 
 
 _RawData = tuple[tuple[str, str], list[dict[str, str]]]
+
+
+@final
+class RouteTextRecord(NamedTuple):
+    title: str
+    text_description: str
+
+
+@dataclass
+class RouteEntry:
+    audio_description: str
+    address: str
+    nearest_metro_station_names: list[str]
+    route_text_records: list[RouteTextRecord]
 
 
 def get_metro_stations_for_attraction(
