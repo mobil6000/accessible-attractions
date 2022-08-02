@@ -3,7 +3,7 @@ install-dev-dependencies:
 
 
 install-prod-dependencies:
-	@poetry check && poetry install --no-dev
+	@poetry check && poetry install --no-dev && poetry run python manage.py check
 
 
 install-pre-commit-hook:
