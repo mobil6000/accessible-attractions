@@ -1,3 +1,7 @@
+'''
+User interface configuration for the application: static files and templates
+'''
+
 from server.settings.components import PROJECT_PACKAGE_DIR
 
 

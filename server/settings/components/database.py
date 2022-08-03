@@ -1,4 +1,4 @@
-'''Database settings'''
+'''Database configuration for the application'''
 
 from server.settings.components import config
 

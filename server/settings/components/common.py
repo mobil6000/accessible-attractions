@@ -1,5 +1,5 @@
 '''
-Common django settings for project
+Common django settings for the application
 '''
 
 from server.settings.components import BASE_DIR, config
