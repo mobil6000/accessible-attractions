@@ -6,7 +6,7 @@ from server.settings.components import PROJECT_PACKAGE_DIR
 
 
 
-TEMPLATES = [
+TEMPLATES = (
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [PROJECT_PACKAGE_DIR / 'templates', ],
@@ -20,7 +20,7 @@ TEMPLATES = [
             ],
         },
     },
-]
+)
 
 
 # Static files (CSS, JavaScript, Images)

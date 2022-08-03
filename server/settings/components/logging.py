@@ -25,17 +25,17 @@ _LOG_HENDLERS = {
 
 _LOGGERS = {
     'django': {
-        'handlers': ['info_console_handler'],
+        'handlers': ('info_console_handler',),
         'propagate': True,
         'level': 'INFO',
     },
     'security': {
-        'handlers': ['error_console_handler'],
+        'handlers': ('error_console_handler',),
         'level': 'ERROR',
         'propagate': False,
     },
     'django.db.backends': {
-        'handlers': ['info_console_handler'],
+        'handlers': ('info_console_handler',),
         'level': 'DEBUG',
         'propagate': False,
     },
