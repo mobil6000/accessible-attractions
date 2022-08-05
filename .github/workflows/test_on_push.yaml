@@ -1,20 +1,12 @@
-name: Run tests on any push event
-on:
-  push:
-    tags:
-      - '!refs/tags/*'
-    branches:
-      - '*'
-  pull_request:
-    branches: [ master ]
-
+name: test
+on: [push]
 
 
 jobs:
-  run_tests:
+  test-application:
     runs-on: [ubuntu-latest]
-
     steps:
+
       - name: Check out repository
         uses: actions/checkout@master
 
@@ -33,17 +25,11 @@ jobs:
           installer-parallel: true
 
 
-      - name: Install project's dependencies
-        run: poetry install
+      - name: setup project
+        run: make setup-development-env
 
-
-      - name: Configure the project
-        run: make .env
-
-
-      - name: run linting
+      - name: run code quality checks
         run: make lint
-
 
       - name: run tests
         run: make test
