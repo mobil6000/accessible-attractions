@@ -1,6 +1,7 @@
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
 
+from server.utilites import BusinessLogicFailure
 from .services import (
     get_about_site_info,
     get_attraction_detail,
@@ -15,10 +16,11 @@ def index(request: HttpRequest) -> HttpResponse:
 
 
 def show_attraction_list(request: HttpRequest) -> HttpResponse:
-    result = get_attraction_previews()
-    if not result.is_ok():
+    try:
+        result = get_attraction_previews()
+    except BusinessLogicFailure:
         raise Http404('error!')
-    return render(request, 'main/attractions.html', {'attraction_list': result.unwrap()})
+    return render(request, 'main/attractions.html', {'attraction_list': result})
 
 
 def show_attraction_detail(request: HttpRequest, attraction_id: int) -> HttpResponse:

@@ -18,6 +18,14 @@ from result import Err, Result
 ErrorReason = NewType('ErrorReason', str)
 
 
+class BusinessLogicFailure(Exception):
+    '''
+    Raises by an error related to business scenarios
+    '''
+    pass
+
+
+
 def build_upload_path(instance: Model, source_file_name: str, base_path: str | None=None) -> str:
     '''
     Generates a new path for uploaded media files
