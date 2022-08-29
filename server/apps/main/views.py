@@ -24,10 +24,11 @@ def show_attraction_list(request: HttpRequest) -> HttpResponse:
 
 
 def show_attraction_detail(request: HttpRequest, attraction_id: int) -> HttpResponse:
-    result = get_attraction_detail(attraction_id)
-    if not result.is_ok():
+    try:
+        result = get_attraction_detail(attraction_id)
+    except BusinessLogicFailure:
         raise Http404('error!')
-    response_context = {'attraction_id': attraction_id, 'attraction': result.unwrap()}
+    response_context = {'attraction_id': attraction_id, 'attraction': result}
     return render(request, 'main/attraction_detail.html', response_context)
 
 

@@ -63,3 +63,20 @@ def catch_database_errors(func: Callable[..., Any]):
         return result_value
 
     return wrapper
+
+
+def handle_db_errors(func: Callable[..., Any]):
+    '''
+    Wraps a function that interacts with database
+    Raises an exception <Business Logic Failure>
+    '''
+
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> Any:
+        try:
+            result_value = func(*args, **kwargs)
+        except DBError as catched_exception:
+            raise BusinessLogicFailure(catched_exception)
+        return result_value
+
+    return wrapper
