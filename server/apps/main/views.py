@@ -33,10 +33,11 @@ def show_attraction_detail(request: HttpRequest, attraction_id: int) -> HttpResp
 
 
 def show_routes_for_attraction(request: HttpRequest, attraction_id: int) -> HttpResponse:
-    result = get_metro_stations_for_attraction(attraction_id)
-    if not result.is_ok():
+    try:
+        result = get_metro_stations_for_attraction(attraction_id)
+    except BusinessLogicFailure:
         raise Http404('error!')
-    response_context = {'content': result.unwrap()}
+    response_context = {'content': result}
     return render(request, 'main/routes.html', response_context)
 
 
