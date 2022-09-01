@@ -1,9 +1,7 @@
 from typing import final, NamedTuple
 
-from django.db import Error as DBError
-
 from server.apps.main.models import Attraction
-from server.utilites import BusinessLogicFailure
+from server.utilites import BusinessLogicFailure, handle_db_errors
 
 
 
@@ -19,6 +17,7 @@ class AttractionPreview(NamedTuple):
 
 
 
+@handle_db_errors
 def get_attraction_previews() -> list[AttractionPreview]:
     '''
     Returnes short information about all attractions.
@@ -27,10 +26,7 @@ def get_attraction_previews() -> list[AttractionPreview]:
 
     field_names = ('id', 'name', 'short_info',)
     query_set = Attraction.objects.values_list(*field_names)
-    try:
-        data = [AttractionPreview(*row) for row in query_set]
-    except DBError as catched_exception:
-        raise BusinessLogicFailure(catched_exception)
+    data = [AttractionPreview(*row) for row in query_set]
     if not data:
         raise BusinessLogicFailure('not a single attraction was found')
     else:

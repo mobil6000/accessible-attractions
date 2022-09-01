@@ -42,7 +42,8 @@ def show_routes_for_attraction(request: HttpRequest, attraction_id: int) -> Http
 
 
 def show_about_site_info(request: HttpRequest) -> HttpResponse:
-    result = get_about_site_info()
-    if not result.is_ok():
+    try:
+        result = get_about_site_info()
+    except BusinessLogicFailure:
         raise Http404('error!')
-    return render(request, 'main/about_us.html', {'text': result.unwrap()})
+    return render(request, 'main/about_us.html', {'text': result})

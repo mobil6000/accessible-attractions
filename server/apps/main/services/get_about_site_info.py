@@ -1,18 +1,14 @@
 from result import Err, Ok, Result
 
 from server.apps.main.models import AboutUsPage
-from server.utilites import catch_database_errors, ErrorReason, md_to_html
+from server.utilites import BusinessLogicFailure, handle_db_errors, md_to_html
 
 
 
-def get_about_site_info() -> Result[str, ErrorReason]:
-    return _fetch_data().map(md_to_html)
-
-
-@catch_database_errors
-def _fetch_data() -> Result[str, ErrorReason]:
+@handle_db_errors
+def get_about_site_info() -> str:
     data: str | None = AboutUsPage.objects.values_list('content', flat=True).first()
     if data is None:
-        return Err(ErrorReason('data of <about us> page is not exists'))
+        raise BusinessLogicFailure('data of <about us> page is not exists')
     else:
-        return Ok(data)
+        return md_to_html(data)
