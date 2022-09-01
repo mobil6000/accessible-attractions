@@ -4,18 +4,13 @@ Utility tools for the application
 
 from functools import wraps
 from os.path import join as join_paths
-from typing import Any, Callable, NewType
+from typing import Any, Callable
 from uuid import uuid4
 
 from django.db import Error as DBError
 from django.db.models import Model
 from markdown import markdown
-from result import Err, Result
 
-
-
-# This type is returned by the result object in case of an error
-ErrorReason = NewType('ErrorReason', str)
 
 
 class BusinessLogicFailure(Exception):
@@ -45,24 +40,6 @@ def md_to_html(source: str) -> str:
     '''
 
     return markdown(source)
-
-
-def catch_database_errors(func: Callable[..., Any]):
-    '''
-    Wraps a function that interacts with database
-    to transform database exceptions into a result type
-    '''
-
-    @wraps(func)
-    def wrapper(*args, **kwargs) -> Result[Any, ErrorReason]:
-        try:
-            result_value = func(*args, **kwargs)
-        except DBError as catched_exception:
-            msg = str(catched_exception)
-            return Err(ErrorReason(msg))
-        return result_value
-
-    return wrapper
 
 
 def handle_db_errors(func: Callable[..., Any]):
