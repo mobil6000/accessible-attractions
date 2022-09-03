@@ -1,7 +1,10 @@
-from django.db.models import Model
-from pytest import fixture
+from typing import Any, Callable
 
-from server.utilites import build_upload_path, md_to_html
+from django.db import Error as DBError
+from django.db.models import Model
+from pytest import fixture, raises
+
+from server.utilites import build_upload_path, BusinessLogicFailure, handle_db_errors, md_to_html
 
 
 
@@ -12,6 +15,13 @@ def fake_django_model() -> Model:
             app_label = 'main'
 
     return FakeModel()
+
+
+@fixture
+def fake_db_query() -> Callable[..., None]:
+    def func():
+        raise DBError('error!')
+    return func
 
 
 def test_build_upload_path(fake_django_model: Model) -> None:
@@ -25,3 +35,9 @@ def test_md_to_html() -> None:
     expected_result = '<p><strong>Text! </strong></p>'
     real_result = md_to_html('**Text! **')
     assert expected_result == real_result
+
+
+def test_handle_db_errors(fake_db_query: Callable[..., None]) -> None:
+    fake_service_function = handle_db_errors(fake_db_query)
+    with raises(BusinessLogicFailure):
+        fake_service_function()
