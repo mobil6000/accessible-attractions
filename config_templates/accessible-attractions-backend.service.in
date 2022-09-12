@@ -1,0 +1,27 @@
+[Unit]
+Description=<accessible-attractions> backend daemon
+Requires=accessible-attractions-backend.socket
+After=network.target
+
+
+[Service]
+Type=notify
+User=www
+Group=www-data
+RuntimeDirectory=gunicorn
+WorkingDirectory=workdir
+Environment="DJANGO_ENV=production"
+ExecStart=venvpath/bin/gunicorn \
+          --access-logfile - \
+          --workers 5 \
+          --bind unix:/run/accessible-attractions-backend.sock \
+          server.wsgi:application
+
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+
+[Install]
+WantedBy=multi-user.target

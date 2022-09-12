@@ -1,3 +1,6 @@
+python-venv-path := $(shell poetry env info -p)
+
+
 install-dev-dependencies:
 	@poetry check && poetry install
 
@@ -8,6 +11,11 @@ install-prod-dependencies:
 
 install-pre-commit-hook:
 	@poetry run pre-commit install
+
+
+configure_production_env:
+	@sed 's~workdir~$(CURDIR)~g;s~venvpath~$(python-venv-path)~g' \
+	./config_templates/accessible-attractions-backend.service.in > ./production/accessible-attractions-backend.service
 
 
 setup-development-env: install-dev-dependencies install-pre-commit-hook .env
