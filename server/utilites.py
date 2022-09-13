@@ -3,9 +3,10 @@ Utility tools for the application
 '''
 
 from functools import wraps
+from hashlib import md5
 from os.path import join as join_paths
+from os.path import splitext
 from typing import Any, Callable
-from uuid import uuid4
 
 from django.db import Error as DBError
 from django.db.models import Model
@@ -26,8 +27,9 @@ def build_upload_path(instance: Model, source_file_name: str, base_path: str | N
     Generates a new path for uploaded media files
     '''
 
-    file_suffix = source_file_name.split('.')[-1]
-    new_file_name = f'{uuid4().hex}.{file_suffix}'
+    main_file_name, file_suffix = splitext(source_file_name)
+    main_file_name = md5(main_file_name.encode()).hexdigest()
+    new_file_name = f'{main_file_name}{file_suffix}'
     if base_path is not None:
         return join_paths(base_path, new_file_name)
     else:
