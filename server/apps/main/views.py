@@ -41,7 +41,7 @@ def show_routes_for_attraction(request: HttpRequest, attraction_id: int) -> Http
     return render(request, 'main/routes.html', response_context)
 
 
-def show_about_site_info(request: HttpRequest) -> HttpResponse:
+def show_help(request: HttpRequest) -> HttpResponse:
     try:
         result = get_about_site_info()
     except BusinessLogicFailure:
