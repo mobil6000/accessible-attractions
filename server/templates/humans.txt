@@ -1,0 +1,14 @@
+# The humans responsible & technology colophon
+# http://humanstxt.org/
+
+
+## Evgeniy Tulyakov
+
+Team: АРООНДЗ
+
+
+## Technologies
+
+Language: Russian
+Doctype: HTML5
+Technologies: Python3, Django
