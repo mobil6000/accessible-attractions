@@ -15,7 +15,7 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, 'main/index.html', {})
 
 
-def show_attraction_list(request: HttpRequest) -> HttpResponse:
+def show_attractions_list(request: HttpRequest) -> HttpResponse:
     try:
         result = get_attraction_previews()
     except BusinessLogicFailure:
