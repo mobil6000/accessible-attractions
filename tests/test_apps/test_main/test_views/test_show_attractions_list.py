@@ -4,7 +4,7 @@ from typing import Final
 from django.test import Client
 
 from server.apps.main import views
-from server.utilites import BusinessLogicFailure
+from tests.utilites.moks import mok_business_service_with_error
 
 
 
@@ -15,13 +15,7 @@ FAKE_RESULT: Final = [
     _FakeDataStructure(3, 'prolog', 'some strange language'),
 ]
 
-
-def mok_business_service_with_error() -> None:
-    '''
-    Fake failed business scenario
-    '''
-
-    raise BusinessLogicFailure
+PAGE_TEMPLATE_NAME: Final = 'main/attractions.html'
 
 
 def test_response_status(client: Client, monkeypatch) -> None:
@@ -30,12 +24,11 @@ def test_response_status(client: Client, monkeypatch) -> None:
     assert response.status_code == 200
 
 
-def test_response_content(client: Client, monkeypatch) -> None:
+def test_template_name(client: Client, monkeypatch) -> None:
     monkeypatch.setattr(views, 'get_attraction_previews', lambda: FAKE_RESULT)
     response = client.get('/attractions/')
-    page_content = response.content.decode()
-    for data_structure in FAKE_RESULT:
-        assert page_content.find(data_structure.name) > 0
+    page_template = response.templates[0]
+    assert page_template.name == PAGE_TEMPLATE_NAME
 
 
 def test_business_logic_error(client: Client, monkeypatch) -> None:

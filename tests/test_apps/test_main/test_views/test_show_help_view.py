@@ -1,24 +1,14 @@
-import re
 from typing import Final
 
 from django.test import Client
 
 from server.apps.main import views
-from server.utilites import BusinessLogicFailure
+from tests.utilites.moks import mok_business_service_with_error
 
 
 
-FAKE_DATA: Final = 'some useful text'
-PAGE_TITLE: Final = r' *<title>О нас</title>'
-FAKE_ARTICLE: Final = r' *<article.*>some useful text</article>'
-
-
-def mok_business_service_with_error() -> None:
-    '''
-    Fake failed business scenario
-    '''
-
-    raise BusinessLogicFailure
+FAKE_DATA: Final = 'some useful magic text'
+PAGE_TEMPLATE_NAME: Final = 'main/about_us.html'
 
 
 def test_response_status(client: Client, monkeypatch) -> None:
@@ -31,16 +21,15 @@ def test_response_status(client: Client, monkeypatch) -> None:
     assert response.status_code == 200
 
 
-def test_response_content(client: Client, monkeypatch) -> None:
+def test_template_name(client: Client, monkeypatch) -> None:
     '''
-    This test ensures that the url of the help page returns the correct content
+    This test ensures that the view function of the help page returns the correct content
     '''
 
     monkeypatch.setattr(views, 'get_about_site_info', lambda: FAKE_DATA)
     response = client.get('/about/')
-    page_content = response.content.decode()
-    assert re.search(PAGE_TITLE, page_content)
-    assert re.search(FAKE_ARTICLE, page_content)
+    page_template = response.templates[0]
+    assert page_template.name == PAGE_TEMPLATE_NAME
 
 
 def test_business_logic_error(client: Client, monkeypatch) -> None:

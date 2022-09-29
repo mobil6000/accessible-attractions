@@ -4,7 +4,7 @@ from typing import Final
 from django.test import Client
 
 from server.apps.main import views
-from server.utilites import BusinessLogicFailure
+from tests.utilites.moks import mok_business_service_with_error
 
 
 _Fake_Image_description = namedtuple('_Fake_Image_description', (
@@ -19,6 +19,8 @@ _FakeResultDataStructure = namedtuple('_FakeResultDataStructure', (
     'related_photos',
 ))
 
+PAGE_TEMPLATE_NAME: Final = 'main/attraction_detail.html'
+
 
 def mok_business_service(fake_argument: int) -> _FakeResultDataStructure:
     images = (
@@ -26,14 +28,6 @@ def mok_business_service(fake_argument: int) -> _FakeResultDataStructure:
         _Fake_Image_description('enother photo', 'photo2.jpg'),
     )
     return _FakeResultDataStructure('some place', 'good article', 'rec.mp3', images)
-
-
-def mok_business_service_with_error() -> None:
-    '''
-    Fake failed business scenario
-    '''
-
-    raise BusinessLogicFailure
 
 
 def test_response_status(client: Client, monkeypatch) -> None:
@@ -47,18 +41,16 @@ def test_response_status(client: Client, monkeypatch) -> None:
     assert response.status_code == 200
 
 
-def test_response_content(client: Client, monkeypatch) -> None:
+def test_template_name(client: Client, monkeypatch) -> None:
     '''
-    This test ensures that url for getting
-    detailes for concrete attraction returns correct data
+    This test ensures that view function for displaying
+    detailes for concrete attraction renders correct page template
     '''
 
     monkeypatch.setattr(views, 'get_attraction_detail', mok_business_service)
     response = client.get('/attractions3/')
-    page_content = response.content.decode()
-    expected_result = mok_business_service(fake_argument=6)
-    assert page_content.find(expected_result.title) > 0
-    assert page_content.find(expected_result.description) > 0
+    page_template = response.templates[0]
+    assert page_template.name == PAGE_TEMPLATE_NAME
 
 
 def test_business_logic_error(client: Client, monkeypatch) -> None:
