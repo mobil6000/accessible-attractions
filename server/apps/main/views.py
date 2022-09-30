@@ -15,7 +15,7 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, 'main/index.html', {})
 
 
-def show_attraction_list(request: HttpRequest) -> HttpResponse:
+def show_attractions_list(request: HttpRequest) -> HttpResponse:
     try:
         result = get_attraction_previews()
     except BusinessLogicFailure:
@@ -41,7 +41,7 @@ def show_routes_for_attraction(request: HttpRequest, attraction_id: int) -> Http
     return render(request, 'main/routes.html', response_context)
 
 
-def show_about_site_info(request: HttpRequest) -> HttpResponse:
+def show_help(request: HttpRequest) -> HttpResponse:
     try:
         result = get_about_site_info()
     except BusinessLogicFailure:
