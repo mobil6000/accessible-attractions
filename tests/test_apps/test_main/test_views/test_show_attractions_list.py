@@ -8,7 +8,12 @@ from tests.utilites.moks import mok_business_service_with_error
 
 
 
-_FakeDataStructure = namedtuple('_FakeDataStructure', 'attraction_id name short_info')
+_FakeDataStructure = namedtuple('_FakeDataStructure', (
+    'attraction_id',
+    'name',
+    'short_info',
+))
+
 FAKE_RESULT: Final = [
     _FakeDataStructure(1, 'postgresql', 'database management system'),
     _FakeDataStructure(2, 'python', 'some good language'),
