@@ -2,3 +2,4 @@ from .get_about_site_info import get_about_site_info
 from .get_attraction_detail import get_attraction_detail
 from .get_attraction_previews import get_attraction_previews
 from .get_metro_stations_for_attraction import get_metro_stations_for_attraction
+from .search_attractions import search_attractions
