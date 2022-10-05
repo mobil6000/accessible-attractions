@@ -6,6 +6,7 @@
 {% block content %}
 
 <h1>Результаты поиска</h1>
+{% if content %}
 <ul>
     {% for entry in content %}
     <li class="rich_text">
@@ -13,5 +14,8 @@
     </li>
     {% endfor %}
 </ul>
+{% else %}
+<p class="rich_text">По вашему запросу ничего не найдено!</p>
+{% endif %}
 
 {% endblock %}
