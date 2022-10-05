@@ -12,8 +12,6 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css">
   <link rel="stylesheet" type="text/css" href=" {% static 'css/style.css' %}">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 </head>
 
 
@@ -26,9 +24,9 @@
     </a>
     <p class="logo-text">Мир путешествий и возможностей</p>
 
-    <form action="" id="searchform" method="get">
-      <input type="text" placeholder="Искать на сайте...">
-      <button type="submit"><i class="fa fa-search"></i></button>
+    <form action="{% url 'search' %}" id="searchform" method="get">
+      <input name="q" type="text" placeholder="Искать на сайте...">
+      <button type="submit"><i>Искать</i></button>
     </form>
 
     <nav>

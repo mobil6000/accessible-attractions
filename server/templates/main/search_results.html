@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Результаты поиска{% endblock %}
+
+
+{% block content %}
+
+<h1>Результаты поиска</h1>
+<ul>
+    {% for entry in content %}
+    <li class="rich_text">
+        <a href="{% url 'attraction_detail' entry.attraction_id %}">{{ entry.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
