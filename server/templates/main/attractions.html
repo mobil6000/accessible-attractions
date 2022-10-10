@@ -5,15 +5,16 @@
 
 {% block content %}
 
-<h1>Культурные объекты, доступные для посещения людей с глубокими нарушениями зрения</h1>
-<ul>
-{% for attraction in attraction_list %}
-<li class="rich_text">
-    <p><b>{{ attraction.name }}</b></p>
-    <p>{{ attraction.short_info }}</p>
-    <a href="{% url 'attraction_detail' attraction.attraction_id %}">Читать далее...</a>
-</li>
-{% endfor %}
-</ul>
+    <h1>Культурные объекты, доступные для посещения людей с глубокими нарушениями зрения</h1>
+    <ul>
+      {% for attraction in attraction_list %}
+      <li class="rich_text">
+        <p><b>{{ attraction.name }}</b></p>
+        <p>{{ attraction.short_info }}</p>
+        <a href="{% url 'attraction_detail' attraction.attraction_id %}">Читать далее...</a>
+        <a href="{% url 'routes' attraction.attraction_id %}"> <p class="rich_text">Как добраться?</p> </a>
+      </li>
+      {% endfor %}
+    </ul>
 
 {% endblock %}
