@@ -5,20 +5,18 @@
 
 {% block content %}
 
-{% for image in attraction.related_photos %}
-<img src="{{ image.image_url }}" alt="{{ image.caption }}">
-<br>
-{% endfor %}
+    {% for image in attraction.related_photos %}
+    <img src="{{ image.image_url }}" alt="{{ image.caption }}">
+    <br>
+    {% endfor %}
+    <br>
 
-<h1>Описание</h1>
-<article class="rich_text">{{ attraction.description|safe }}</article>
-<br>
-<figure>
-    <figcaption class="rich_text">Слушать аудио описание:</figcaption>
-    <audio controls src="{{ attraction.audio_description_url }}"> Your browser does not support the <code>audio</code> element. </audio>
-</figure>
-<br>
+    <figure>
+      <figcaption class="rich_text">Слушать аудио описание:</figcaption>
+      <audio controls src="{{ attraction.audio_description_url }}"> Your browser does not support the <code>audio</code> element. </audio>
+    </figure>
 
-<a href="{% url 'routes' attraction_id %}"> <p class="rich_text">Как добраться?</p> </a>
+    <h1>Описание</h1>
+    <article class="rich_text">{{ attraction.description|safe }}</article>
 
 {% endblock %}
