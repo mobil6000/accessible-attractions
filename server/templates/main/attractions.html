@@ -8,7 +8,7 @@
     <h1>Культурные объекты, доступные для посещения людей с глубокими нарушениями зрения</h1>
     <ul>
       {% for attraction in attraction_list %}
-      <li class="rich_text">
+      <li class="rich-text">
         <p><b>{{ attraction.name }}</b></p>
         <p>{{ attraction.short_info }}</p>
         <a href="{% url 'attraction_detail' attraction.attraction_id %}">Читать далее...</a>

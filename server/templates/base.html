@@ -18,29 +18,26 @@
 
 <body>
 
-  <header>
-    <a class="logo" href="/">
-      <img src="{% static 'images/image-logo.png' %}" alt="Logo">
-    </a>
+  <header class="header">
+    <img class="logo" src="{% static 'images/image-logo.png' %}" alt="Logo">
     <p class="logo-text">Мир путешествий и возможностей</p>
+
+    <form action="{% url 'search' %}" class="search-form" method="get">
+      <input name="q" type="search" placeholder="Искать на сайте...">
+      <button type="submit"><i>Искать</i></button>
+    </form>
+
   </header>
 
 
-  <nav>
-    <ul class="top-menu">
-      <li><a href="{% url 'about' %}">О нас</a></li>
-      <li><a href="{% url 'attractions_list' %}">Культурные объекты Москвы</a></li>
+  <nav class="navigation">
+    <ul class="menu-bar">
+      <li class="menu-item"><a href="{% url 'about' %}">О нас</a></li>
+      <li class="menu-item"><a href="{% url 'attractions_list' %}">Культурные объекты Москвы</a></li>
     </ul>
   </nav>
 
 
-  <form action="{% url 'search' %}" id="searchform" method="get">
-    <input name="q" type="text" placeholder="Искать на сайте...">
-    <button type="submit"><i>Искать</i></button>
-  </form>
-
-
-  <hr>
   <br>
   <main>
   {% block content %}
@@ -49,9 +46,9 @@
   <br>
 
 
-  <footer>
-    <span><b>Мир путешествий и возможностей © 2022</b></span>
-    <span><b>Проект создан при поддержке конкурса грантов "Москва - Добрый город"</b></span>
+  <footer class="footer">
+    <p><b>Мир путешествий и возможностей © 2022</b></p>
+    <p><b>Проект создан при поддержке конкурса грантов "Москва - Добрый город"</b></p>
   </footer>
 
 </body>

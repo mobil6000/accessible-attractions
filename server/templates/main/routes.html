@@ -4,32 +4,32 @@
 
 
 {% block content %}
-    <p class="rich_text">Адрес: {{ content.address}}</p>
+    <p class="rich-text">Адрес: {{ content.address}}</p>
 
-    <p class="rich_text">Ближайшие станции метро:</p>
+    <p class="rich-text">Ближайшие станции метро:</p>
     <ul>
       {% for station_entry in content.nearest_metro_stations %}
       {% if station_entry.station_type == 'm' %}
-      <li class="rich_text">Станция метро "{{ station_entry.station_name }}</li>
+      <li class="rich-text">Станция метро "{{ station_entry.station_name }}</li>
       {% else %}
-      <li class="rich_text">Станция МЦК "{{ station_entry.station_name }}</li>
+      <li class="rich-text">Станция МЦК "{{ station_entry.station_name }}</li>
       {% endif %}
       {% endfor %}
     </ul>
     <br>
 
     <figure>
-      <figcaption class="rich_text">Слушать аудио описание:</figcaption>
+      <figcaption class="rich-text">Слушать аудио описание:</figcaption>
       <audio controls src="{{ content.audio_description }}"> Your browser does not support the <code>audio</code> element. </audio>
     </figure>
     <br>
 
     {% for station_entry in content.nearest_metro_stations %}
     <h1>Маршрут от станции до объекта</h1>
-    <article class="rich_text">{{ station_entry.route_from_station }}</article>
+    <article class="rich-text">{{ station_entry.route_from_station }}</article>
     <br>
     <h1>Маршрут от объекта до станции</h1>
-    <article class="rich_text">{{ station_entry.route_to_station }}</article>
+    <article class="rich-text">{{ station_entry.route_to_station }}</article>
     <br>
     {% endfor %}
 

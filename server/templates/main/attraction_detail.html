@@ -12,11 +12,11 @@
     <br>
 
     <figure>
-      <figcaption class="rich_text">Слушать аудио описание:</figcaption>
+      <figcaption class="rich-text">Слушать аудио описание:</figcaption>
       <audio controls src="{{ attraction.audio_description_url }}"> Your browser does not support the <code>audio</code> element. </audio>
     </figure>
 
     <h1>Описание</h1>
-    <article class="rich_text">{{ attraction.description|safe }}</article>
+    <article class="rich-text">{{ attraction.description|safe }}</article>
 
 {% endblock %}
