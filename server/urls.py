@@ -6,9 +6,18 @@ Include other URLConfs from external apps using method `include()`.
 
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.auth.models import Group, User
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+
+
+# Customizing the admin panel
+admin.site.site_header = 'accessibleattractions.ru: Администрирование'
+admin.site.site_title = 'Панель администратора'
+admin.site.index_title = 'Начальная страница'
+admin.site.unregister(Group)
+admin.site.unregister(User)
 
 
 # Views definitions for text static files:
