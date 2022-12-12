@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}видео файлы{% endblock %}
+
+
+{% block content %}
+    {% for video in videos %}
+    <h1>{{ video.title }}</h1>
+    <p class="rich-text" >{{ video.description }}</p>
+    <video controls>
+        <source src="{{ video.video_file }}">
+    </video>
+    {% endfor %}
+{% endblock %}

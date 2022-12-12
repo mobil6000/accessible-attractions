@@ -7,6 +7,7 @@ from .services import (
     get_attraction_detail,
     get_attraction_previews,
     get_metro_stations_for_attraction,
+    get_videos,
     search_attractions
 )
 
@@ -57,3 +58,11 @@ def show_help(request: HttpRequest) -> HttpResponse:
     except BusinessLogicFailure:
         raise Http404('error!')
     return render(request, 'main/about_us.html', {'text': result})
+
+
+def show_videos(request: HttpRequest) -> HttpResponse:
+    try:
+        result = get_videos()
+    except BusinessLogicFailure:
+        raise Http404('error!')
+    return render(request, 'main/videos.html', {'videos': result})
