@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.http import HttpRequest
 
-from .models import AboutUsPage, Attraction, MetroStation, Photo, Route
+from .models import AboutUsPage, Attraction, MetroStation, Photo, Route, Video
 
 
 
@@ -40,3 +40,9 @@ class AboutUsPageAdmin(admin.ModelAdmin[AboutUsPage]):
             return False
         else:
             return super().has_add_permission(request)
+
+
+
+@admin.register(Video)
+class VideoAdmin(admin.ModelAdmin[Video]):
+    '''Admin panel object for ``Video`` model.'''
